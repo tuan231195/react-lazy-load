@@ -111,7 +111,7 @@ export default class LazyLoad extends Component {
   }
 
   render() {
-    const { children, className, height, width } = this.props;
+    const { children, className, height, width, placeholder } = this.props;
     const { visible } = this.state;
 
     const elStyles = { height, width };
@@ -124,7 +124,7 @@ export default class LazyLoad extends Component {
     return React.createElement(this.props.elementType, {
       className: elClasses,
       style: elStyles,
-    }, visible && Children.only(children));
+    }, visible ? Children.only(children) : placeholder);
   }
 }
 
@@ -144,6 +144,7 @@ LazyLoad.propTypes = {
   offsetRight: PropTypes.number,
   offsetTop: PropTypes.number,
   offsetVertical: PropTypes.number,
+  placeholder: PropTypes.element,
   threshold: PropTypes.number,
   throttle: PropTypes.number,
   width: PropTypes.oneOfType([
@@ -154,6 +155,7 @@ LazyLoad.propTypes = {
 };
 
 LazyLoad.defaultProps = {
+  placeholder: null,
   elementType: 'div',
   debounce: true,
   offset: 0,
